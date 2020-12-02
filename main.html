@@ -35,7 +35,7 @@
             <td id="33" class="side2 vertical5 diagonalL5 diagonalR4"></td>
             <td id="41" class="side2 vertical6 diagonalL6 diagonalR3"></td>
             <td id="49" class="side2 vertical7 diagonalL7 diagonalR2"></td>
-            <td id="57" class="side2 vertical8 diagonalL8  diagonalR1"></td>
+            <td id="57" class="side2 vertical8 diagonalL8 diagonalR1"></td>
         </tr>
         <tr>
             <td id="2" class="side3 vertical1 diagonalL2 diagonalR9"></td>
@@ -104,9 +104,58 @@
             //     $(this).toggleClass("clicked");
             //     $('.clicked').text("Q");
             // });
-            $("td").on("click",  function () {
-                $(this).toggleClass("clicked");
-                $('.clicked').text("Q");    
+            let clickCnt = 0;
+            $("td").on("click", function () {
+                let getClass = $(this).attr('class').split(" ");
+                console.log(getClass);
+                if ((getClass.includes("locked")) == false) {
+                    if ((getClass.includes("clicked")) == false) {
+                        let cnt = getClass.length;
+                        // console.log(cnt);
+                        while (cnt >= 0) {
+                            $("." + getClass[cnt]).css('background-color', 'Yellow');
+                            $("." + getClass[cnt]).addClass("locked");
+                            $("." + getClass[cnt]).toggleClass("clickCnt" + clickCnt);                        
+                            cnt--;
+                        }
+                        $(this).toggleClass("clicked");
+                        $(this).addClass("clickCnt" + clickCnt); 
+                        $(this).text("Q");
+                        $(this).removeClass("locked");
+                        $(this).css("background-color","white");
+                        clickCnt++;
+                        if(clickCnt == 8){
+                            alert("おめ");
+                            audioElem = new Audio();
+                            audioElem.src = "fanfare.mp3";
+                            audioElem.play();
+                        }
+                    } else {
+                        // $(this).toggleClass("clicked");
+                        // $(this).text("");
+                        // let cnt = getClass.length;
+                        // console.log(cnt);
+                        // console.log(getClass);
+                        // let deleteClass = getClass[cnt-1];
+                        // console.log(deleteClass);
+                        // clickCnt--;
+                        // while (cnt >= 0) {
+                        //     $("." + getClass[cnt]).css('background-color', 'white');
+                        //     $("." + getClass[cnt]).removeClass("locked");
+                        //     $("." + getClass[cnt]).removeClass("" + deleteClass);
+                        //     cnt--;
+                        // }
+                        // console.log(clickCnt);  
+                        // let n = clickCnt;
+                        // while(n > -1){
+                        //     $(".clickCnt" + (n-1)).css("background-color","Yellow");
+                        //     $(".clickCnt" + (n-1)).addClass("locked");                            
+                        //     n--;                            
+                        // }
+                        // $(".clicked").removeClass("locked");
+                        // $(".clicked").css("background-color","white");
+                    }
+                }
             });
         </script>
 </body>
